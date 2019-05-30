@@ -3,6 +3,8 @@
 ; Y se apague durante 500Hz
 ; 6,000,000/500 
 ; Gastar 12,000 ciclos en el delay
+; Gastar 9,000 prendidio
+; Gastar 3,000 apagado
 ; for(int i=0; i<n; i++) n veces 125  ldi r12, 0
 ;                                     ldi r13, 124
 ;                                     subi r12, 1
@@ -26,20 +28,33 @@ out DDRB, r16
 
 loop:
 sbi PortB, 1
-rcall delay
+rcall delay_on
 cbi PortB, 1
-rcall delay
+rcall delay_of
 rjmp loop
 
-delay:
-ldi r16, 83  ; 1 Clock 125/1.5 = 83
-loop2:
-ldi r17, 64  ; 1 Clock  96/1.5
+delay_on:
+ldi r16, 50       ; 1 Clock 75/1.5 = 50
+loop2_1:
+ldi r17, 80       ; 1 Clock  120/1.5 = 80
 
-loop3:
-dec r17      ; 1 Clock
-brne loop2      ; 1/2 Clock
+loop3_1:
+dec r17           ; 1 Clock
+brne loop3_1      ; 1/2 Clock
 
-dec r16       ; 1 Clock
-brne loop       ; 1/2 Clock
-ret             ; 4 Clocks
+dec r16           ; 1 Clock
+brne loop2_1      ; 1/2 Clock
+ret               ; 4 Clocks
+
+delay_of:
+ldi r16, 33       ; 1 Clock 50/1.5 = 33
+loop2_2:
+ldi r17, 40       ; 1 Clock  60/1.5 = 40
+
+loop3_2:
+dec r17           ; 1 Clock
+brne loop3_2      ; 1/2 Clock
+
+dec r16           ; 1 Clock
+brne loop2_2      ; 1/2 Clock
+ret               ; 4 Clocks
