@@ -28,15 +28,15 @@ out DDRB, r16
 
 loop:
 sbi PortB, 1
-rcall delay_of
+rcall delay_off
 cbi PortB, 1
 rcall delay_on
 rjmp loop
 
 delay_on:
-ldi r16, 50       ; 1 Clock 75/1.5 = 50
+ldi r16, 2       ; 1 Clock 75/1.5 = 50
 loop2_1:
-ldi r17, 80       ; 1 Clock  120/1.5 = 80
+ldi r17, 117       ; 1 Clock  120/1.5 = 80
 
 loop3_1:
 dec r17           ; 1 Clock
@@ -46,10 +46,10 @@ dec r16           ; 1 Clock
 brne loop2_1      ; 1/2 Clock
 ret               ; 4 Clocks
 
-delay_of:
-ldi r16, 33       ; 1 Clock 50/1.5 = 33
+delay_off:
+ldi r16, 2       ; 1 Clock 50/1.5 = 33
 loop2_2:
-ldi r17, 40       ; 1 Clock  60/1.5 = 40
+ldi r17, 39       ; 1 Clock  60/1.5 = 40
 
 loop3_2:
 dec r17           ; 1 Clock

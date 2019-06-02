@@ -32,14 +32,14 @@ rcall delay
 rjmp loop
 
 delay:
-ldi r16, 83  ; 1 Clock 125/1.5 = 83
+ldi r16, 3  ; 1 Clock 125/2 = 62.5
 loop2:
-ldi r17, 64  ; 1 Clock  96/1.5
+ldi r17, 52  ; 1 Clock  96/2 = 48
 
 loop3:
 dec r17      ; 1 Clock
-brne loop3      ; 1/2 Clock
+brne loop3      ; 1 o 2 Clock
 
 dec r16       ; 1 Clock
-brne loop2       ; 1/2 Clock
+brne loop2       ; 1 o 2 Clock
 ret             ; 4 Clocks

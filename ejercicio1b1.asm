@@ -34,12 +34,6 @@ rjmp loop
 delay:
 ldi r16, 13  ; 1 Clock 20/1.5 = 13.3
 loop2:
-ldi r17, 20  ; 1 Clock  30/1.5 = 20
-
-loop3:
-dec r17      ; 1 Clock
-brne loop3      ; 1/2 Clock
-
 dec r16       ; 1 Clock
 brne loop2      ; 1/2 Clock
 ret   
