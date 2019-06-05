@@ -1,8 +1,8 @@
 ; Frecuencia del reloj 12MHz = 12,000,000 Hz (12,000,000 ciclos por segundo)
-; Necesitamos que la frecuencia del puerto sea  de 10,000Hz ()
-; 5,000 ciclos prendidio y 5,000 ciclos apagado
-; 6,000,000/5,000 = 
-; Gastar 600 ciclos en el delay
+; Necesitamos que la frecuencia del puerto sea  de 100,000Hz ()
+; 50,000 ciclos prendidio y 5,000 ciclos apagado
+; 6,000,000/50,000 = 120
+; Gastar 1,000 ciclos en el delay
 ; for(int i=0; i<n; i++) n veces 125  ldi r12, 0
 ;                                     ldi r13, 124
 ;                                     subi r12, 1
@@ -20,15 +20,20 @@ ldi r16, low(RAMEND)
 out SPL, r16
 ldi r16, high(RAMEND)
 out SPH, r16
- 
+
 ldi r16, 0xFF
 out DDRB, r16
 
 loop:
 sbi PortB, 1
-nop
-nop
-nop
+rcall delay
 cbi PortB, 1
-nop
+rcall delay
 rjmp loop
+
+delay:
+ldi r16, 17  ; 1 Clock 100/5 = 33
+loop2:
+dec r16       ; 1 Clock
+brne loop2       ; 1/2 Clock
+ret

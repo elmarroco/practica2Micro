@@ -2,9 +2,9 @@
 ; Necesitamos que la frecuencia del puerto sea  de 1000Hz ()
 ; Y se apague durante 500Hz
 ; 6,000,000/500 
-; Gastar 12,000 ciclos en el delay
-; Gastar 9,000 prendidio
-; Gastar 3,000 apagado
+; Gastar 24,000 ciclos en el delay
+; Gastar 18,000 prendidio
+; Gastar 6,000 apagado
 ; for(int i=0; i<n; i++) n veces 125  ldi r12, 0
 ;                                     ldi r13, 124
 ;                                     subi r12, 1
@@ -30,13 +30,13 @@ loop:
 sbi PortB, 1
 rcall delay_on
 cbi PortB, 1
-rcall delay_off
+rcall delay_of
 rjmp loop
 
 delay_on:
-ldi r16, 2       ; 1 Clock 75/1.5 = 50
+ldi r16, 60       ; 1 Clock 150/2.5 = 60
 loop2_1:
-ldi r17, 117       ; 1 Clock  120/1.5 = 80
+ldi r17, 48       ; 1 Clock  120/2.5 = 80
 
 loop3_1:
 dec r17           ; 1 Clock
@@ -46,10 +46,10 @@ dec r16           ; 1 Clock
 brne loop2_1      ; 1/2 Clock
 ret               ; 4 Clocks
 
-delay_off:
-ldi r16, 2       ; 1 Clock 50/1.5 = 33
+delay_of:
+ldi r16, 40       ; 1 Clock 100/2.5 = 40
 loop2_2:
-ldi r17, 39       ; 1 Clock  60/1.5 = 40
+ldi r17, 24       ; 1 Clock  60/2.5 = 24
 
 loop3_2:
 dec r17           ; 1 Clock

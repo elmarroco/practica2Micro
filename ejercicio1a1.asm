@@ -9,7 +9,6 @@
 ;                                     rjmp con_for1
 ;                                     
 ;   for(int j=0; j<m; j++) m veces 96
-;     a+b
 ; 
 .include "m8def.inc"
 .org 0x0000
@@ -24,22 +23,22 @@ out SPH, r16
 ldi r16, 0xFF
 out DDRB, r16
 
-loop:
+loop_main:
 sbi PortB, 1
 rcall delay
 cbi PortB, 1
 rcall delay
-rjmp loop
+rjmp loop_main
 
 delay:
-ldi r16, 3  ; 1 Clock 125/2 = 62.5
-loop2:
-ldi r17, 52  ; 1 Clock  96/2 = 48
+ldi r16, 50  ; 1 Clock 125/2.5 = 50
+outer_loop:
+ldi r17, 38  ; 1 Clock  96/2.5 = 38
 
-loop3:
+inner_loop:
 dec r17      ; 1 Clock
-brne loop3      ; 1 o 2 Clock
+brne inner_loop      ; 1 o 2 Clock
 
 dec r16       ; 1 Clock
-brne loop2       ; 1 o 2 Clock
+brne outer_loop       ; 1 o 2 Clock
 ret             ; 4 Clocks

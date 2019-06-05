@@ -1,4 +1,3 @@
-
 .org 0x0000
  
 rjmp reset
@@ -26,7 +25,7 @@ rjmp loop
  
 ADC_ISR:
 push r16
-in r16, SREG
+in r16, SRE0G
 push r16
 push r17
  
